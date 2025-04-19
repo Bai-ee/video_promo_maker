@@ -11,7 +11,8 @@
     "event": "ts-node -r dotenv/config --project tsconfig-node.json branded-video-maker.ts event-teaser",
     "preview": "ts-node -r dotenv/config --project tsconfig-node.json tests/quick_preview.ts",
     "clip": "ts-node -r dotenv/config --project tsconfig-node.json lib/clip-audio.ts",
-    "artist": "ts-node -r dotenv/config --project tsconfig-node.json branded-video-maker.ts artist-promo"
+    "artist": "ts-node -r dotenv/config --project tsconfig-node.json branded-video-maker.ts artist-promo",
+    "test:renderer": "ts-node -r dotenv/config --project tsconfig-node.json tests/html_renderer_test.ts"
   },
   "dependencies": {
     "axios": "^1.6.7",
@@ -19,13 +20,17 @@
     "dotenv": "^16.5.0",
     "ffmpeg-static": "^5.2.0",
     "fluent-ffmpeg": "^2.1.2",
+    "handlebars": "^4.7.8",
     "node-fetch": "^3.3.2",
+    "puppeteer": "^21.7.0",
     "sharp": "^0.32.6",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/fluent-ffmpeg": "^2.1.24",
+    "@types/handlebars": "^4.1.0",
     "@types/node": "^20.4.5",
+    "@types/puppeteer": "^7.0.0",
     "@types/sharp": "^0.32.0",
     "@types/uuid": "^9.0.8",
     "ts-node": "^10.9.1",

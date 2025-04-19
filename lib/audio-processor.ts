@@ -7,6 +7,9 @@ import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { promisify } from 'util';
 import { unlink } from 'fs/promises';
+import path from 'path';
+import fs from 'fs/promises';
+import { execSync } from 'child_process';
 
 if (!ffmpegPath) {
   throw new Error('ffmpeg-static path not found');
@@ -122,5 +125,44 @@ export class AudioProcessor {
     try {
       await unlink(clipPath);
     } catch {}
+  }
+
+  public static async generateAudioClip(
+    audioUrl: string,
+    duration: number,
+    startTime: number = 0
+  ): Promise<string> {
+    const outputDir = path.join(process.cwd(), 'output', 'audio');
+    await fs.mkdir(outputDir, { recursive: true });
+
+    const outputPath = path.join(outputDir, `clip_${Date.now()}.mp3`);
+    
+    console.log(`Creating ${duration} second audio clip starting at ${startTime} seconds...`);
+
+    // Download audio file using curl (temporary solution)
+    const tempInputPath = path.join(outputDir, 'temp_input.mp3');
+    execSync(`curl -L "${audioUrl}" -o "${tempInputPath}"`);
+
+    return new Promise((resolve, reject) => {
+      ffmpeg(tempInputPath)
+        .setStartTime(startTime)
+        .duration(duration)
+        .audioFilters([
+          'afade=t=in:st=0:d=1',  // 1 second fade in
+          `afade=t=out:st=${duration-1}:d=1` // 1 second fade out
+        ])
+        .output(outputPath)
+        .on('end', async () => {
+          try {
+            await fs.unlink(tempInputPath);
+            resolve(outputPath);
+          } catch (error) {
+            console.warn('Error cleaning up temporary audio file:', error);
+            resolve(outputPath);
+          }
+        })
+        .on('error', (err) => reject(new Error(`Error generating audio clip: ${err.message}`)))
+        .run();
+    });
   }
 } 

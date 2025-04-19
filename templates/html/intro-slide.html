@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: {{width}}px;
+      height: {{height}}px;
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp {{animationDuration}}ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .artist-name {
+      font-size: 72px;
+      font-weight: bold;
+      margin: 0 0 20px 0;
+      background: linear-gradient(45deg, {{brandStyle.primary}} 0%, {{brandStyle.secondary}} 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .genre {
+      font-size: 36px;
+      color: {{brandStyle.accent}};
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .mix-info {
+      font-size: {{brandStyle.fontSize.body}}px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 1s ease-out 1s forwards;
+      text-align: center;
+      margin-top: 20px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .mix-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .mix-duration {
+      font-size: {{brandStyle.fontSize.caption}}px;
+      opacity: 0.7;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+    }
+
+    .grain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANxM8mAAAACHRSTlMzMzMzMzMzM85JBgUAAAA1SURBVDjLY2CgNhg1wgjEowYYIQywgHhSDcQN4Y4cAe6YN4LcsXAEuWPhCHLHwhHkjoUE3AEAuzw/HbHahHEAAAAASUVORK5CYII=');
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.5) 150%);
+      pointer-events: none;
+    }
+
+    .now-playing {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: {{brandStyle.fontSize.caption}}px;
+      color: rgba(255, 255, 255, 0.6);
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.5s forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="artist-name">{{artistName}}</h1>
+    <div class="genre">{{genre}}</div>
+    {{#if mixTitle}}
+    <div class="mix-info">
+      <div class="mix-title">{{mixTitle}}</div>
+      <div class="mix-duration">{{mixDuration}}</div>
+    </div>
+    <div class="now-playing">Now Playing: 30 Second Preview</div>
+    {{/if}}
+  </div>
+  {{#if brandStyle.imageFilters.grain}}
+  <div class="grain"></div>
+  {{/if}}
+  {{#if brandStyle.imageFilters.vignette}}
+  <div class="vignette"></div>
+  {{/if}}
+</body>
+</html> 

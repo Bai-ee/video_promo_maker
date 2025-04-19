@@ -1,0 +1,129 @@
+{
+  "templateName": "Product Announcement",
+  "templateType": "product",
+  "scriptTemplate": "Create a short, compelling 30-60 second script for a product announcement video for {brandName}. The product is called {productName} and is {productDescription}. The tone should be {tone} and focus on these key points: {keyBenefits}. Use these keywords in the script: on-chain, sovereignty, creator economy. Include a clear call to action that emphasizes ownership and control.",
+  "sections": [
+    {
+      "type": "intro",
+      "duration": 3,
+      "elements": [
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "center",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "{brandName}",
+          "position": "bottom",
+          "style": "subheading",
+          "animation": "slideUp"
+        }
+      ]
+    },
+    {
+      "type": "productReveal",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "image",
+          "prompt": "A high-quality product image of {productName}, a {productDescription}, with {primaryColor} background, modern interface, scanline effect, subtle grid overlay, retrofuturistic style",
+          "position": "center",
+          "animation": "zoomIn"
+        },
+        {
+          "type": "text",
+          "content": "Introducing {productName}",
+          "position": "top",
+          "style": "heading",
+          "animation": "fadeIn"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "duration": 15,
+      "elements": [
+        {
+          "type": "imageSequence",
+          "prompts": [
+            "A modern interface showing {productName} with {keyFeature1}, with sound waveforms and audio visualization, dark theme with purple accents",
+            "A music producer using {productName}, focusing on {keyFeature2}, with subtle blockchain visualization elements",
+            "A DJ or artist having complete control over their music with {productName}, demonstrating {keyFeature3}, with on-chain visualization"
+          ],
+          "position": "center",
+          "animation": "crossfade"
+        },
+        {
+          "type": "lowerThird",
+          "content": [
+            "{keyFeature1}",
+            "{keyFeature2}",
+            "{keyFeature3}"
+          ],
+          "style": "branded",
+          "animation": "slideRight"
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "image",
+          "prompt": "A professional music producer or DJ using {productName}, showing creative satisfaction and ownership, with {accentColor} elements in the dark background, audio waveforms visible",
+          "position": "center",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "\"{testimonialQuote}\"",
+          "position": "bottom",
+          "style": "quote",
+          "animation": "typewriter"
+        }
+      ]
+    },
+    {
+      "type": "callToAction",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "background",
+          "color": "{primaryColor}",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "{callToAction}",
+          "position": "center",
+          "style": "heading",
+          "color": "{accentColor}",
+          "animation": "pulse"
+        },
+        {
+          "type": "text",
+          "content": "{website}",
+          "position": "bottom",
+          "style": "subheading",
+          "color": "white",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "top-right",
+          "size": "small",
+          "animation": "none"
+        }
+      ]
+    }
+  ],
+  "audioOptions": {
+    "music": "deep house ambient tech",
+    "voiceGender": "MALE",
+    "soundEffects": ["digital", "transition", "interface"]
+  }
+} 

@@ -1,0 +1,49 @@
+{
+  "brandName": "Underground Existence",
+  "primaryColor": "#1A1F2C",
+  "secondaryColor": "#2B2D42",
+  "accentColor": "#8B5CF6",
+  "backgroundColor": "#121212",
+  "fontFamily": "Space Grotesk",
+  "fontFamilyFallback": "sans-serif",
+  "fontSize": {
+    "heading": 32,
+    "subheading": 24,
+    "body": 16,
+    "caption": 12
+  },
+  "tone": "confident, archival, analog-accurate",
+  "voiceStyle": "deep house ambient tech",
+  "logoPath": "./assets/underground-existence-logo.svg",
+  "useBorders": false,
+  "layout": {
+    "titlePosition": "center",
+    "logoPosition": "top-right",
+    "textAlignment": "left"
+  },
+  "videoStyle": {
+    "transitionType": "crossfade",
+    "transitionDuration": 0.5,
+    "captionStyle": "clean",
+    "useLowerThirds": true,
+    "useIntro": true,
+    "useOutro": true,
+    "introDuration": 3,
+    "outroDuration": 4
+  },
+  "promptTemplates": {
+    "thumbnail": "Black-and-white photo of a Chicago DJ, high contrast, gritty texture, subtle blur, Studio Ghibli composition, central focus with soft vignette and retro film grain",
+    "intro": "Dark tone video intro for Underground Existence, minimal motion design with bold text and deep analog aesthetic using {accentColor}",
+    "outro": "Simple closing frame with logo and call-to-action, consistent with intro design, no fluff"
+  },
+  "imageFilters": {
+    "saturation": 0.9,
+    "brightness": 0.95,
+    "contrast": 1.2,
+    "useOverlay": true,
+    "overlayColor": "rgba(0, 0, 0, 0.35)",
+    "grain": true,
+    "blur": 0.3,
+    "vignette": true
+  }
+}

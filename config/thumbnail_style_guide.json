@@ -1,0 +1,13 @@
+{
+  "thumbnailStyleGuide": {
+    "description": "Style guide for creating thumbnails based on UndergroundExistence artist visuals.",
+    "characteristics": [
+      "High-contrast black and white (monochrome)",
+      "Grainy texture (vintage/analog feel)",
+      "Vignette edges (darkened borders)",
+      "Soft blur (subtle reduction in sharpness)"
+    ],
+    "aiPrompt": "Transform a portrait photo into a high-contrast black and white image with a grainy texture, subtle vignette edges, and a soft blur to emulate a vintage analog photograph.",
+    "implementationNotes": "Can be implemented programmatically using libraries like Python's PIL and OpenCV (see conversation context for example code)."
+  }
+} 

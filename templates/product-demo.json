@@ -1,0 +1,298 @@
+{
+  "templateName": "EditTrax Product Demo",
+  "templateType": "productDemo",
+  "scriptTemplate": "Create an engaging product demonstration script for {productName}, highlighting the revolutionary aspects of this blockchain-powered music platform. Focus on the key features that empower musicians to take control of their digital presence and monetize their work. Explain how {productName} uses decentralized technology to ensure artists retain ownership of their creations while providing seamless distribution. Include specific benefits compared to traditional music platforms, and showcase how both musicians and fans experience value through this ecosystem.",
+  "sections": [
+    {
+      "type": "intro",
+      "duration": 10,
+      "elements": [
+        {
+          "type": "visualEffect",
+          "effect": "glitch",
+          "intensity": "medium",
+          "animation": "pulse"
+        },
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "center",
+          "animation": "glitch"
+        },
+        {
+          "type": "text",
+          "content": "Introducing {productName}",
+          "position": "bottom",
+          "style": "heading",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "The Future of Music Ownership",
+          "position": "bottom-center",
+          "style": "subheading",
+          "animation": "typewriter"
+        }
+      ]
+    },
+    {
+      "type": "painPoint",
+      "duration": 15,
+      "elements": [
+        {
+          "type": "imageSequence",
+          "prompts": [
+            "A frustrated musician looking at tiny streaming royalty payments on a traditional platform, dark mood",
+            "Musicians signing away rights to their music through complex contracts, shadowy corporate figures in background",
+            "An artist's work being used without permission, showing digital theft concept with glitching visuals"
+          ],
+          "position": "fullscreen",
+          "animation": "crossfade"
+        },
+        {
+          "type": "text",
+          "content": "Today's Music Industry Challenges",
+          "position": "top",
+          "style": "heading",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "bulletPoints",
+          "content": [
+            "Minimal royalties from streaming",
+            "Loss of ownership rights",
+            "No direct connection to fans",
+            "Limited monetization options"
+          ],
+          "position": "center-right",
+          "style": "list",
+          "animation": "slideRight"
+        }
+      ]
+    },
+    {
+      "type": "solution",
+      "duration": 20,
+      "elements": [
+        {
+          "type": "image",
+          "prompt": "A sleek, futuristic interface of {productName} showing a blockchain-based music distribution platform with artist profiles, NFT music releases, and direct fan engagement features, purple and blue color scheme, clean design",
+          "position": "fullscreen",
+          "animation": "zoomIn"
+        },
+        {
+          "type": "text",
+          "content": "The {productName} Difference",
+          "position": "top",
+          "style": "heading",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "featureHighlight",
+          "features": [
+            {
+              "name": "On-Chain Ownership",
+              "description": "Every track is tokenized and verifiably yours",
+              "icon": "blockchain"
+            },
+            {
+              "name": "Direct Distribution",
+              "description": "Connect directly with fans, no middlemen",
+              "icon": "connection"
+            },
+            {
+              "name": "Smart Royalties",
+              "description": "Automated payments through blockchain contracts",
+              "icon": "payment"
+            },
+            {
+              "name": "Tokenized Access",
+              "description": "Create exclusive experiences for your community",
+              "icon": "key"
+            }
+          ],
+          "position": "center-right",
+          "style": "modern",
+          "animation": "staggered"
+        }
+      ]
+    },
+    {
+      "type": "productDemo",
+      "duration": 30,
+      "elements": [
+        {
+          "type": "screenRecording",
+          "source": "{demoRecordingPath}",
+          "position": "fullscreen"
+        },
+        {
+          "type": "callout",
+          "content": "Watch {productName} in Action",
+          "position": "top-right",
+          "style": "highlighted",
+          "animation": "pulse"
+        },
+        {
+          "type": "cursor",
+          "animation": "follow"
+        },
+        {
+          "type": "overlay",
+          "content": [
+            {
+              "time": 5,
+              "text": "Upload your track and mint as an NFT",
+              "position": "bottom-left"
+            },
+            {
+              "time": 12,
+              "text": "Set royalty splits with collaborators",
+              "position": "top-right"
+            },
+            {
+              "time": 20,
+              "text": "Create token-gated exclusive content",
+              "position": "bottom-right"
+            },
+            {
+              "time": 25,
+              "text": "Engage directly with your community",
+              "position": "top-left"
+            }
+          ],
+          "style": "modern",
+          "animation": "fadeInOut"
+        }
+      ]
+    },
+    {
+      "type": "testimonials",
+      "duration": 15,
+      "elements": [
+        {
+          "type": "splitScreen",
+          "leftPrompt": "A professional DJ with headphones looking satisfied using {productName} to distribute exclusive remixes, dark studio setting with blue lighting",
+          "rightPrompt": "An indie band gathered around a computer celebrating a successful release on {productName}, showing earnings dashboard with significant direct fan support",
+          "animation": "slideIn"
+        },
+        {
+          "type": "text",
+          "content": "Creator Success Stories",
+          "position": "top",
+          "style": "heading",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "quotes",
+          "content": [
+            "\"I've earned more in one release on {productName} than six months on traditional platforms.\"",
+            "\"For the first time, I feel in control of my music and my relationship with fans.\"",
+            "\"The smart contract royalty splits have revolutionized our band's collaboration process.\""
+          ],
+          "position": "bottom",
+          "style": "testimonial",
+          "animation": "crossfade"
+        }
+      ]
+    },
+    {
+      "type": "pricing",
+      "duration": 10,
+      "elements": [
+        {
+          "type": "background",
+          "color": "gradient:dark-blue-to-purple",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "Simple, Creator-First Pricing",
+          "position": "top",
+          "style": "heading",
+          "color": "white",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "pricingTable",
+          "tiers": [
+            {
+              "name": "Creator",
+              "price": "Free",
+              "features": ["Basic minting", "Fan connection", "Direct sales"]
+            },
+            {
+              "name": "Pro",
+              "price": "{proPricing}",
+              "features": ["Unlimited minting", "Custom storefronts", "Token-gated content", "Analytics"]
+            },
+            {
+              "name": "Label",
+              "price": "{labelPricing}",
+              "features": ["Multi-artist management", "Advanced royalty splits", "API access", "White-label options"]
+            }
+          ],
+          "position": "center",
+          "style": "modern",
+          "animation": "staggered"
+        },
+        {
+          "type": "text",
+          "content": "No Hidden Fees. No Rights Grabs. Ever.",
+          "position": "bottom",
+          "style": "subheading",
+          "color": "accent",
+          "animation": "fadeIn"
+        }
+      ]
+    },
+    {
+      "type": "callToAction",
+      "duration": 8,
+      "elements": [
+        {
+          "type": "visualEffect",
+          "effect": "particles",
+          "intensity": "medium",
+          "animation": "flow"
+        },
+        {
+          "type": "text",
+          "content": "Join The Music Ownership Revolution",
+          "position": "center",
+          "style": "heading",
+          "color": "white",
+          "animation": "pulse"
+        },
+        {
+          "type": "text",
+          "content": "Start For Free Today",
+          "position": "center-bottom",
+          "style": "button",
+          "color": "accent",
+          "animation": "bounce"
+        },
+        {
+          "type": "text",
+          "content": "{website}",
+          "position": "bottom",
+          "style": "subheading",
+          "color": "white",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "bottom-right",
+          "size": "small",
+          "animation": "fadeIn"
+        }
+      ]
+    }
+  ],
+  "audioOptions": {
+    "music": "electronic ambient",
+    "voiceGender": "MALE",
+    "soundEffects": ["digital", "interface", "success", "whoosh", "glitch"]
+  }
+} 

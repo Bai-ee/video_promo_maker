@@ -1,0 +1,149 @@
+{
+  "templateName": "Brand Video",
+  "templateType": "branding",
+  "scriptTemplate": "Create a dynamic 60-second brand video script for {brandName}, focused on digital music ownership and control. The brand tone is {tone}. The script should convey how {brandName} empowers musicians and creators to own their content through blockchain technology. Focus on these brand values: decentralization, creator economy, ownership. Include phrases about how EditTrax is revolutionizing the music industry by putting creators first. End with a powerful call to action encouraging viewers to join the decentralized music revolution.",
+  "sections": [
+    {
+      "type": "intro",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "visualEffect",
+          "effect": "scanlines",
+          "intensity": "medium",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "center",
+          "animation": "glitch"
+        },
+        {
+          "type": "text",
+          "content": "The Future of Music",
+          "position": "bottom",
+          "style": "heading",
+          "animation": "typewriter"
+        }
+      ]
+    },
+    {
+      "type": "brandStory",
+      "duration": 15,
+      "elements": [
+        {
+          "type": "imageSequence",
+          "prompts": [
+            "A dark digital landscape with purple and blue accents, showing audio waveforms and blockchain visualizations, representing the music revolution",
+            "Artists and musicians gaining control of their work through technology, shown in a retrofuturistic style with {accentColor} highlights",
+            "A visualization of on-chain music ownership, with digital tokens connected to music tracks, dark background with glowing elements"
+          ],
+          "position": "center",
+          "animation": "crossfade",
+          "filters": {
+            "contrast": 1.2,
+            "saturation": 0.9
+          }
+        },
+        {
+          "type": "text",
+          "content": "Revolutionizing Music Ownership",
+          "position": "top",
+          "style": "heading",
+          "animation": "fadeIn"
+        }
+      ]
+    },
+    {
+      "type": "values",
+      "duration": 15,
+      "elements": [
+        {
+          "type": "imageSequence",
+          "prompts": [
+            "A musician with complete creative control, surrounded by digital interfaces showing blockchain transactions and music waveforms, dark stylish setting",
+            "A community of creators collaborating in a digital space with {primaryColor} and {accentColor} glowing elements, representing decentralization",
+            "A DJ or producer confidently managing their music assets through a futuristic interface with purple highlights"
+          ],
+          "position": "center",
+          "animation": "slideLeft"
+        },
+        {
+          "type": "lowerThird",
+          "content": [
+            "Decentralization",
+            "Creator Economy",
+            "True Ownership"
+          ],
+          "style": "branded",
+          "animation": "slideRight"
+        }
+      ]
+    },
+    {
+      "type": "problemSolution",
+      "duration": 10,
+      "elements": [
+        {
+          "type": "splitScreen",
+          "leftPrompt": "A frustrated musician dealing with traditional music industry problems like lack of control and profit loss, desaturated colors",
+          "rightPrompt": "The same musician empowered with {brandName} technology, taking control of their music distribution and profits, vibrant with {accentColor} highlights",
+          "animation": "reveal"
+        },
+        {
+          "type": "text",
+          "content": "From Controlled to Controller",
+          "position": "bottom",
+          "style": "subheading",
+          "animation": "fadeIn"
+        }
+      ]
+    },
+    {
+      "type": "callToAction",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "background",
+          "color": "{primaryColor}",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "visualEffect",
+          "effect": "digitalNoise",
+          "intensity": "low",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "Join the Decentralized Music Revolution",
+          "position": "center",
+          "style": "heading",
+          "color": "{accentColor}",
+          "animation": "pulse"
+        },
+        {
+          "type": "text",
+          "content": "{website}",
+          "position": "bottom",
+          "style": "subheading",
+          "color": "white",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "top-right",
+          "size": "small",
+          "animation": "none"
+        }
+      ]
+    }
+  ],
+  "audioOptions": {
+    "music": "ambient electronic with deep bass",
+    "voiceGender": "MALE",
+    "soundEffects": ["digital", "glitch", "interface", "bass drop"]
+  }
+} 

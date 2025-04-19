@@ -1,0 +1,81 @@
+import { VideoTemplate } from '../types/video';
+
+const artistPromoTemplate: VideoTemplate = {
+  templateName: 'Artist Promotion',
+  templateType: 'artist-promo',
+  scriptTemplate: `Create a promotional script for electronic music artist {artistName}, who produces {artistGenre} music. The script should highlight their unique style and sound, featuring their mix titled "{mixTitle}". {mixDescription}`,
+  sections: [
+    {
+      type: 'intro',
+      duration: 3,
+      elements: [
+        {
+          type: 'background',
+          color: '#1A1F2C'
+        },
+        {
+          type: 'text',
+          content: '{artistName}',
+          style: 'heading',
+          position: 'center',
+          animation: 'fade-in'
+        },
+        {
+          type: 'text',
+          content: '{artistGenre}',
+          style: 'subheading',
+          position: 'bottom',
+          animation: 'slide-up'
+        }
+      ]
+    },
+    {
+      type: 'content',
+      duration: 22,
+      elements: [
+        {
+          type: 'image',
+          prompt: 'Dark, moody electronic music venue with subtle lighting and dynamic movement, featuring elements of {artistGenre} music culture'
+        },
+        {
+          type: 'text',
+          content: '"{mixTitle}"',
+          style: 'heading',
+          position: 'top',
+          animation: 'fade-in'
+        },
+        {
+          type: 'text',
+          content: '{mixDescription}',
+          style: 'body',
+          position: 'bottom',
+          animation: 'fade-in'
+        }
+      ]
+    },
+    {
+      type: 'outro',
+      duration: 5,
+      elements: [
+        {
+          type: 'background',
+          color: '#1A1F2C'
+        },
+        {
+          type: 'text',
+          content: '{callToAction}',
+          style: 'heading',
+          position: 'center',
+          animation: 'fade-in'
+        }
+      ]
+    }
+  ],
+  audioOptions: {
+    duration: 30,
+    fadeIn: 2,
+    fadeOut: 2
+  }
+};
+
+export default artistPromoTemplate; 

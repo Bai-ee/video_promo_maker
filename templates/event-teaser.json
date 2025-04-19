@@ -1,0 +1,139 @@
+{
+  "templateName": "Event Teaser",
+  "templateType": "event",
+  "scriptTemplate": "Create a short, exciting 30-second script for a teaser video for an upcoming {brandName} event. The event is called {eventName} and will take place on {eventDate} at {eventLocation}. The tone should be {tone} and build anticipation. Highlight these key attractions: {keyAttractions}. End with a clear call to action for registration or more information.",
+  "sections": [
+    {
+      "type": "intro",
+      "duration": 3,
+      "elements": [
+        {
+          "type": "background",
+          "color": "{primaryColor}",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "COMING SOON",
+          "position": "center",
+          "style": "heading",
+          "color": "{accentColor}",
+          "animation": "flicker"
+        }
+      ]
+    },
+    {
+      "type": "eventReveal",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "image",
+          "prompt": "An exciting teaser image for {eventName}, a {brandName} event, with dramatic lighting, {primaryColor} and {accentColor} color scheme",
+          "position": "center",
+          "animation": "zoomIn"
+        },
+        {
+          "type": "text",
+          "content": "{eventName}",
+          "position": "center",
+          "style": "heading",
+          "animation": "explode"
+        }
+      ]
+    },
+    {
+      "type": "dateReveal",
+      "duration": 3,
+      "elements": [
+        {
+          "type": "background",
+          "color": "{secondaryColor}",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "text",
+          "content": "{eventDate}",
+          "position": "center",
+          "style": "heading",
+          "color": "white",
+          "animation": "dropIn"
+        },
+        {
+          "type": "text",
+          "content": "{eventLocation}",
+          "position": "bottom",
+          "style": "subheading",
+          "color": "white",
+          "animation": "fadeIn"
+        }
+      ]
+    },
+    {
+      "type": "highlights",
+      "duration": 12,
+      "elements": [
+        {
+          "type": "imageSequence",
+          "prompts": [
+            "A preview of {attraction1} at {eventName}, vibrant and exciting",
+            "A crowd enjoying {attraction2} at a similar {brandName} event",
+            "A detailed look at {attraction3}, a highlight of {eventName}"
+          ],
+          "position": "center",
+          "animation": "crossfade"
+        },
+        {
+          "type": "lowerThird",
+          "content": [
+            "✓ {attraction1}",
+            "✓ {attraction2}",
+            "✓ {attraction3}"
+          ],
+          "style": "branded",
+          "animation": "slideUp"
+        }
+      ]
+    },
+    {
+      "type": "callToAction",
+      "duration": 5,
+      "elements": [
+        {
+          "type": "background",
+          "prompt": "A subtle, elegant background showing the venue for {eventName} with {primaryColor} color grading",
+          "position": "fill",
+          "animation": "fadeIn",
+          "overlay": "rgba(0,0,0,0.5)"
+        },
+        {
+          "type": "text",
+          "content": "{callToAction}",
+          "position": "center",
+          "style": "heading",
+          "color": "{accentColor}",
+          "animation": "pulse"
+        },
+        {
+          "type": "text",
+          "content": "Tickets available at {website}",
+          "position": "bottom",
+          "style": "subheading",
+          "color": "white",
+          "animation": "fadeIn"
+        },
+        {
+          "type": "logo",
+          "source": "{logoPath}",
+          "position": "bottom-right",
+          "size": "medium",
+          "animation": "slideUp"
+        }
+      ]
+    }
+  ],
+  "audioOptions": {
+    "music": "anticipation",
+    "voiceGender": "any",
+    "soundEffects": ["whoosh", "impact", "crowd"]
+  }
+} 

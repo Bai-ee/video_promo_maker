@@ -4,7 +4,7 @@
   "secondaryColor": "#1A1F2C",
   "accentColor": "#FF4081",
   "backgroundColor": "#000000",
-  "fontFamily": "Orbitron",
+  "fontFamily": "Gately",
   "fontFamilyFallback": "Arial",
   "fontSize": {
     "heading": 72,
@@ -12,8 +12,8 @@
     "body": 24,
     "caption": 18
   },
-  "tone": "modern and underground",
-  "voiceStyle": "authentic and direct",
+  "tone": "analog-realism, cinematic underground, archival depth",
+  "voiceStyle": "ambient techno, documentary realism, shadowplay",
   "logoPath": "./assets/logo.png",
   "useBorders": true,
   "borderColor": "#333333",
@@ -24,9 +24,9 @@
     "textAlignment": "center"
   },
   "videoStyle": {
-    "transitionType": "fade",
+    "transitionType": "fade-to-black",
     "transitionDuration": 0.5,
-    "captionStyle": "minimal",
+    "captionStyle": "minimal monochrome",
     "useLowerThirds": false,
     "useIntro": true,
     "useOutro": true,
@@ -34,16 +34,19 @@
     "outroDuration": 3
   },
   "promptTemplates": {
-    "default": "Create a promotional image for {artistName}"
+    "default": "A hyperrealistic 4K professional photograph of a dark Chicago warehouse interior in the 90s. No perceivable people, only silhouettes and fog, lit by strobing light and ambient haze. Industrial, analog textures. Cinematic realism.",
+    "thumbnail": "Atmospheric street-level graffiti wall in Chicago at night, cinematic framing, muted tones with neon spray accents, analog photo grain",
+    "intro": "Ambient warehouse intro with analog textures, light flickers, soft motion design, archival typography using {accentColor}",
+    "outro": "Faded black frame with logo watermark, timestamp overlay, ambient background tone, and light grain"
   },
   "imageFilters": {
-    "saturation": 1.2,
-    "brightness": 1.1,
-    "contrast": 1.1,
+    "saturation": 0.9,
+    "brightness": 0.95,
+    "contrast": 1.2,
     "useOverlay": true,
-    "overlayColor": "rgba(26, 31, 44, 0.2)",
+    "overlayColor": "rgba(18, 18, 18, 0.6)",
     "grain": true,
-    "blur": 0,
+    "blur": 0.2,
     "vignette": true
   }
 }

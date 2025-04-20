@@ -83,7 +83,7 @@ async function createBrandedVideo(
         artistGenre: artistData.artistGenre,
         mixTitle: selectedMix.mixTitle,
         mixDescription: selectedMix.mixDescription,
-        artistImage: artistData.artistImageFilename,
+        artistImage: artistData.artistImageFilename.replace('img/artists/', ''),
         callToAction: 'Listen to more mixes at Underground Existence'
       };
     }
@@ -179,20 +179,20 @@ const eventTeaser = {
   website: 'www.crittersquest.com/pixelcon'
 };
 
-// Choose which template to use
-const templateType = process.argv[2] || 'product-announcement';
-const artistName = process.argv[3]; // Optional artist name for artist-promo
-const outputPath = process.argv[4] || `./output/${templateType}_${Date.now()}.mp4`;
+// Get command line arguments
+const args = process.argv.slice(2);
+const templateType = args[0];
+const artistName = args[1];
+
+if (!templateType || !artistName) {
+  console.error('Usage: npm run artist <template-type> <artist-name>');
+  process.exit(1);
+}
 
 // Determine which user inputs to use based on template type
 let userInputs: Record<string, any>;
 
 if (templateType === 'artist-promo') {
-  if (!artistName) {
-    console.error('Error: Artist name is required for artist-promo template');
-    console.log('Usage: npm run artist "Artist Name"');
-    process.exit(1);
-  }
   userInputs = { artistName };
 } else if (templateType.includes('product')) {
   userInputs = productAnnouncement;
@@ -205,7 +205,7 @@ if (templateType === 'artist-promo') {
 }
 
 // Create the branded video
-createBrandedVideo(templateType, userInputs, outputPath)
+createBrandedVideo(templateType, userInputs, `./output/artist-promo_${Date.now()}.mp4`)
   .then(() => {
     console.log('Video creation process completed.');
   })

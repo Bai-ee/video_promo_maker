@@ -1,13 +1,47 @@
 {
   "thumbnailStyleGuide": {
-    "description": "Style guide for creating thumbnails based on UndergroundExistence artist visuals.",
+    "description": "Cyberpunk-influenced underground electronic music aesthetic",
     "characteristics": [
-      "High-contrast black and white (monochrome)",
-      "Grainy texture (vintage/analog feel)",
-      "Vignette edges (darkened borders)",
-      "Soft blur (subtle reduction in sharpness)"
+      "High contrast lighting",
+      "Neon accents",
+      "Industrial textures",
+      "Retro-futuristic elements",
+      "Archive/catalog aesthetic"
     ],
-    "aiPrompt": "Transform a portrait photo into a high-contrast black and white image with a grainy texture, subtle vignette edges, and a soft blur to emulate a vintage analog photograph.",
-    "implementationNotes": "Can be implemented programmatically using libraries like Python's PIL and OpenCV (see conversation context for example code)."
+    "aiPrompt": "Create a scene that embodies underground electronic music culture with cyberpunk influences"
+  },
+  "subsonicArchive": {
+    "colorPalette": [
+      "Jet Black (#000000)",
+      "Asphalt Grey (#2C2C2C)",
+      "Midnight Navy (#1A1A2E)",
+      "Neon Magenta (#FF00FF)",
+      "Chrome Green (#00FF9F)",
+      "Purple Haze (#9D4EDD)",
+      "Tape-burn Orange (#FF6B35)",
+      "Dusty Pink (#FFB4B4)"
+    ],
+    "textures": [
+      "Film grain",
+      "VHS static",
+      "Vinyl record scratches",
+      "Rusted steel",
+      "Light leaks",
+      "Analog distortion"
+    ],
+    "composition": [
+      "Wide-angle urban spaces",
+      "Low-angle perspectives",
+      "Industrial architecture",
+      "Dramatic lighting",
+      "Silhouetted figures"
+    ],
+    "typography": [
+      "IBM Plex Mono",
+      "Technical readouts",
+      "Catalog numbers",
+      "Timestamp overlays",
+      "Archive metadata"
+    ]
   }
 } 

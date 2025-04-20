@@ -102,7 +102,7 @@ export async function generateImages(script: string): Promise<string[]> {
     
     // Generate scene descriptions based on the script
     const scenes = [
-      "A DJ silhouette in an industrial underground space, backlit by neon magenta and chrome green lights, with analog equipment and vinyl crates visible in the shadows",
+      "A hyperrealistic 4K professional photograph of a dark Chicago warehouse interior in the 90s. No perceivable people, only silhouettes and fog, lit by strobing light and ambient haze. Industrial, analog textures. Cinematic realism.",
       "Close-up of vintage mixer knobs and faders, bathed in tape-burn orange light, with a blurred crowd of dancer silhouettes in the background",
       "Wide-angle shot of an underground archive room, dusty light beams revealing rows of vinyl records, with holographic catalog numbers floating in the air"
     ];

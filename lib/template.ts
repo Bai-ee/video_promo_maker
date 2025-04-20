@@ -57,10 +57,47 @@ export async function processTemplate(
     mkdirSync(outputDir, { recursive: true });
   }
 
+  // Get artist thumbnail path and resize it once
+  const artistThumbnailPath = path.join('assets/artist_thumbnails', userInputs.artistImage || 'default.jpg');
+  if (!existsSync(artistThumbnailPath)) {
+    console.error(`Artist thumbnail not found: ${artistThumbnailPath}`);
+    throw new Error(`Artist thumbnail not found at ${artistThumbnailPath}. Please ensure the image exists.`);
+  }
+
+  console.log(`Using artist thumbnail: ${artistThumbnailPath}`);
+
+  const resizedArtistImage = await sharp(artistThumbnailPath)
+    .resize(400, 400, {
+      fit: 'cover',
+      position: 'center'
+    })
+    .toBuffer();
+
+  // Create default scene with artist thumbnail
+  const defaultScenePath = path.join(outputDir, 'default_scene.png');
+  await sharp({
+    create: {
+      width: 1160,
+      height: 1456,
+      channels: 4,
+      background: { r: 26, g: 31, b: 44, alpha: 1 }
+    }
+  })
+  .composite([
+    {
+      input: resizedArtistImage,
+      top: 100,
+      left: 380, // Centered: (1160 - 400) / 2 = 380
+      gravity: 'center',
+      blend: 'over'
+    }
+  ])
+  .toFile(defaultScenePath);
+
   // Process each section
   for (let i = 0; i < filledTemplate.sections.length; i++) {
     const section = filledTemplate.sections[i];
-    await processSection(section, i, scenes, outputDir, brandStyle, userInputs);
+    await processSection(section, i, scenes, outputDir, brandStyle, userInputs, resizedArtistImage);
   }
   
   // Generate silent audio as fallback
@@ -82,7 +119,8 @@ async function processSection(
   scenes: SceneConfig[],
   outputDir: string,
   brandStyle: BrandStyle,
-  userInputs: Record<string, any>
+  userInputs: Record<string, any>,
+  resizedArtistImage: Buffer
 ): Promise<void> {
   // Determine background image/color and text elements
   let bgImage = '';
@@ -146,36 +184,92 @@ async function processSection(
           // Use the first image
           bgImage = images[0];
           
-          // Apply brand-specific image processing if needed
-          if (brandStyle.imageFilters) {
-            // Create a processed version of the image with brand styling
-            const processedPath = path.join(outputDir, `section_${sectionIndex}_branded.png`);
-            
-            // Apply filters using sharp
-            await sharp(bgImage)
-              .modulate({
-                brightness: brandStyle.imageFilters.brightness,
-                saturation: brandStyle.imageFilters.saturation
-              })
-              .convolve({
-                width: 3,
-                height: 3,
-                kernel: [0, -0.5, 0, -0.5, 3, -0.5, 0, -0.5, 0]
-              })
-              .composite([{
+          // Apply brand-specific image processing and add artist thumbnail
+          const processedPath = path.join(outputDir, `section_${sectionIndex}_branded.png`);
+          
+          await sharp(bgImage)
+            .modulate({
+              brightness: brandStyle.imageFilters.brightness,
+              saturation: brandStyle.imageFilters.saturation
+            })
+            .convolve({
+              width: 3,
+              height: 3,
+              kernel: [0, -0.5, 0, -0.5, 3, -0.5, 0, -0.5, 0]
+            })
+            .composite([
+              {
                 input: Buffer.from(`<svg><rect width="100%" height="100%" fill="${brandStyle.imageFilters.overlayColor}"/></svg>`),
                 blend: 'overlay'
-              }])
-              .toFile(processedPath);
-            
-            bgImage = processedPath;
-          }
+              },
+              {
+                input: resizedArtistImage,
+                top: 100,
+                left: 380, // Centered: (1160 - 400) / 2 = 380
+                gravity: 'center',
+                blend: 'over'
+              }
+            ])
+            .toFile(processedPath);
+          
+          bgImage = processedPath;
         }
       } catch (error) {
         console.error('Error generating image for section:', error);
+        // Create a fallback background with the artist thumbnail
+        const canvas = sharp({
+          create: {
+            width: 1160,
+            height: 1456,
+            channels: 4,
+            background: { r: 26, g: 31, b: 44, alpha: 1 }
+          }
+        });
+
+        const processedPath = path.join(outputDir, `section_${sectionIndex}_branded.png`);
+        
+        await canvas
+          .composite([
+            {
+              input: resizedArtistImage,
+              top: 100,
+              left: 380,
+              gravity: 'center',
+              blend: 'over'
+            }
+          ])
+          .toFile(processedPath);
+        
+        bgImage = processedPath;
       }
     } else if (element.type === 'background' && element.color) {
       bgColor = element.color;
+      
+      // Create a colored background with the artist thumbnail
+      const canvas = sharp({
+        create: {
+          width: 1160,
+          height: 1456,
+          channels: 4,
+          background: { r: 26, g: 31, b: 44, alpha: 1 }
+        }
+      });
+
+      const processedPath = path.join(outputDir, `section_${sectionIndex}_branded.png`);
+      
+      await canvas
+        .composite([
+          {
+            input: resizedArtistImage,
+            top: 100,
+            left: 380,
+            gravity: 'center',
+            blend: 'over'
+          }
+        ])
+        .toFile(processedPath);
+      
+      bgImage = processedPath;
     }
   }
   

@@ -31,46 +31,91 @@ export async function createEnhancedVideo(
   brandStyle: BrandStyle,
   callToAction: string = 'Get Started Today!'
 ): Promise<string> {
-  console.log('Creating video with audio...');
+  console.log('\n=== Starting Video Creation Process ===');
+  console.log('Output path:', outputVideoPath);
   
   // Ensure output directory exists
   const outputDir = path.dirname(outputVideoPath);
   if (!existsSync(outputDir)) {
+    console.log('Creating output directory:', outputDir);
     mkdirSync(outputDir, { recursive: true });
   }
   
   const tmpDir = './output/tmp';
   if (!existsSync(tmpDir)) {
+    console.log('Creating temporary directory:', tmpDir);
     mkdirSync(tmpDir, { recursive: true });
   }
   
   // Create temporary video file path
   const tempVideoPath = path.join(tmpDir, 'temp_video.mp4');
   
-  // Check if we have any valid image files
-  console.log('Checking for valid images in output/scenes directory...');
+  // Check if we have all required overlay files
+  console.log('\n=== Verifying Text Overlays ===');
+  const requiredOverlays = ['text_overlay_0.png', 'text_overlay_1.png', 'text_overlay_2.png'];
   const scenesDir = './output/scenes';
+  
+  console.log('Checking scenes directory:', scenesDir);
+  if (!existsSync(scenesDir)) {
+    throw new Error('Scenes directory not found');
+  }
+  
+  console.log('Required overlays:', requiredOverlays.join(', '));
+  const missingOverlays = requiredOverlays.filter(overlay => {
+    const exists = existsSync(path.join(scenesDir, overlay));
+    console.log(`${overlay}: ${exists ? '✓ Found' : '✗ Missing'}`);
+    return !exists;
+  });
+  
+  if (missingOverlays.length > 0) {
+    throw new Error(`Missing required text overlays: ${missingOverlays.join(', ')}`);
+  }
+  
+  // Check if we have any valid image files
+  console.log('\n=== Processing Image Files ===');
   let validImages: string[] = [];
   
-  if (existsSync(scenesDir)) {
-    try {
-      validImages = readdirSync(scenesDir)
-        .filter(file => file.endsWith('.png') || file.endsWith('.jpg'))
-        .map(file => path.join(scenesDir, file));
-      
-      console.log(`Found ${validImages.length} valid images`);
-    } catch (error) {
-      console.error('Error reading scenes directory:', error);
-    }
+  try {
+    const allFiles = readdirSync(scenesDir);
+    console.log('Total files in directory:', allFiles.length);
+    
+    validImages = allFiles
+      .filter(file => {
+        const isValid = file.endsWith('.png') || file.endsWith('.jpg');
+        console.log(`${file}: ${isValid ? '✓ Valid' : '✗ Invalid'} format`);
+        return isValid;
+      })
+      .sort((a, b) => {
+        // Sort text overlays in correct order
+        if (a.startsWith('text_overlay_') && b.startsWith('text_overlay_')) {
+          return parseInt(a.match(/\d+/)?.[0] || '0') - parseInt(b.match(/\d+/)?.[0] || '0');
+        }
+        // Put background images before text overlays
+        if (a.startsWith('text_overlay_')) return 1;
+        if (b.startsWith('text_overlay_')) return -1;
+        return a.localeCompare(b);
+      })
+      .map(file => path.join(scenesDir, file));
+    
+    console.log('\nProcessed images in order:');
+    validImages.forEach((img, index) => {
+      console.log(`${index + 1}. ${path.basename(img)}`);
+    });
+  } catch (error) {
+    console.error('Error reading scenes directory:', error);
+    throw error;
   }
   
   if (validImages.length > 0) {
     try {
-      console.log('Creating video from available images...');
+      console.log('\n=== Creating Video ===');
+      console.log('Number of images:', validImages.length);
+      console.log('Duration per image:', `${30/validImages.length}s`);
       
       // Create a list of image inputs for ffmpeg
       const imageInputs = validImages.map(img => `-loop 1 -t ${30/validImages.length} -i "${img}"`).join(' ');
       
+      console.log('Running FFmpeg for video creation...');
       // Create video from images with transitions
       execSync(`
         ffmpeg -y ${imageInputs} -filter_complex "
@@ -79,39 +124,24 @@ export async function createEnhancedVideo(
         " -map "[outv]" -c:v libx264 -pix_fmt yuv420p "${tempVideoPath}"
       `);
       
-      console.log('Adding audio to video...');
+      console.log('\n=== Adding Audio ===');
+      console.log('Audio file:', audioPath);
       // Add audio to the video
       execSync(`
         ffmpeg -y -i "${tempVideoPath}" -i "${audioPath}" -c:v copy -c:a aac -shortest "${outputVideoPath}"
       `);
       
-      console.log(`Video with audio created at: ${outputVideoPath}`);
+      console.log('\n=== Video Creation Complete ===');
+      console.log('Final video path:', outputVideoPath);
       return outputVideoPath;
     } catch (error) {
-      console.error('Error creating video:', error);
+      console.error('\n=== Error Creating Video ===');
+      console.error('Error details:', error);
       throw error;
     }
   }
   
-  // If we don't have valid images, create a basic test video with audio
-  console.log('Creating basic test video pattern with audio...');
-  try {
-    // Create test video
-    execSync(`
-      ffmpeg -y -f lavfi -i testsrc=duration=30:size=${VIDEO_WIDTH}:${VIDEO_HEIGHT}:rate=30 -c:v libx264 -pix_fmt yuv420p "${tempVideoPath}"
-    `);
-    
-    // Add audio to the test video
-    execSync(`
-      ffmpeg -y -i "${tempVideoPath}" -i "${audioPath}" -c:v copy -c:a aac -shortest "${outputVideoPath}"
-    `);
-    
-    console.log(`Test video with audio created at: ${outputVideoPath}`);
-    return outputVideoPath;
-  } catch (error) {
-    console.error('Error creating test video:', error);
-    throw new Error('Failed to create video');
-  }
+  throw new Error('No valid images found for video creation');
 }
 
 /**

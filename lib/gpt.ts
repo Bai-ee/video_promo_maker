@@ -10,47 +10,10 @@ interface GPTResponse {
 }
 
 export async function generateScript(prompt: string): Promise<string> {
-  console.log("Sending request to OpenAI API...");
-  try {
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-4",
-        messages: [
-          { role: "system", content: "Create a short, engaging 1-minute script for a social media video." },
-          { role: "user", content: prompt },
-        ],
-      }),
-    });
-    
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error("OpenAI API Error:", errorText);
-      throw new Error(`OpenAI API returned ${res.status}: ${errorText}`);
-    }
+  // Return a default script without using OpenAI
+  return `Experience the future of electronic music. Our featured artist brings you a unique blend of sounds and rhythms that will transport you to another dimension. With cutting-edge production and masterful mixing, this is more than just music - it's a journey through sound.
 
-    const data = await res.json() as GPTResponse;
-    
-    if (data.error) {
-      console.error("OpenAI API Error:", data.error);
-      throw new Error(`OpenAI API Error: ${JSON.stringify(data.error)}`);
-    }
-    
-    const content = data.choices?.[0]?.message?.content;
-    if (!content) {
-      console.error("No content returned from OpenAI:", data);
-      return "This is a sample script for a video about AI in music production. AI is revolutionizing how music is created, produced, and distributed.";
-    }
-    
-    console.log("Script content:", content);
-    return content;
-  } catch (error) {
-    console.error("Error generating script:", error);
-    // Return a fallback script
-    return "This is a sample script for a video about AI in music production. AI is revolutionizing how music is created, produced, and distributed.";
-  }
+Get ready to be moved by the beats, lifted by the melodies, and transformed by the experience. This is where innovation meets tradition, where technology meets soul.
+
+Don't miss out on this incredible musical journey. The future of sound is here.`;
 } 

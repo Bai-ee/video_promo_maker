@@ -28,25 +28,6 @@ interface StyleGuide {
   };
 }
 
-// Generate a solid color image as fallback
-function generateSolidColorImage(width: number, height: number, color: string = "#1a1a1a"): Buffer {
-  const canvas = createCanvas(width, height);
-  const ctx = canvas.getContext('2d');
-  
-  // Fill background
-  ctx.fillStyle = color;
-  ctx.fillRect(0, 0, width, height);
-  
-  // Add text
-  ctx.fillStyle = '#8B5CF6';
-  ctx.font = '24px "IBM Plex Mono"';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('[ARCHIVE MODE: FALLBACK]', width/2, height/2);
-  
-  return canvas.toBuffer('image/png');
-}
-
 function constructImagePrompt(baseScene: string, styleGuide: StyleGuide): string {
   // Get current timestamp for metadata
   const timestamp = new Date().toISOString().split('T')[0];
@@ -120,16 +101,19 @@ export async function generateImages(script: string): Promise<string[]> {
     const styleGuide = JSON.parse(fs.readFileSync('./config/thumbnail_style_guide.json', 'utf8')) as StyleGuide;
     
     // Generate scene descriptions based on the script
-    const scenes = generateSceneDescriptions(script);
-    const maxImagesToGenerate = Math.min(scenes.length, 4);
+    const scenes = [
+      "A DJ silhouette in an industrial underground space, backlit by neon magenta and chrome green lights, with analog equipment and vinyl crates visible in the shadows",
+      "Close-up of vintage mixer knobs and faders, bathed in tape-burn orange light, with a blurred crowd of dancer silhouettes in the background",
+      "Wide-angle shot of an underground archive room, dusty light beams revealing rows of vinyl records, with holographic catalog numbers floating in the air"
+    ];
     
     // Generate images using OpenAI's image generation API
-    for (let i = 0; i < maxImagesToGenerate; i++) {
+    for (let i = 0; i < scenes.length; i++) {
       const scene = scenes[i];
       const imagePath = path.join(scenesDir, `section_${i}_branded.png`);
       
       try {
-        console.log(`Generating image ${i + 1}/${maxImagesToGenerate}...`);
+        console.log(`Generating image ${i + 1}/${scenes.length}...`);
         
         // Construct enhanced prompt with Subsonic Archive style
         const fullPrompt = constructImagePrompt(scene, styleGuide);
@@ -171,46 +155,41 @@ export async function generateImages(script: string): Promise<string[]> {
         
       } catch (error) {
         console.error(`Error generating image ${i + 1}:`, error);
-        // Create stylized fallback image
-        writeFileSync(imagePath, generateSolidColorImage(1024, 1024));
+        // Create fallback image
+        const canvas = createCanvas(1024, 1024);
+        const ctx = canvas.getContext('2d');
+        
+        // Fill background with gradient
+        const gradient = ctx.createLinearGradient(0, 0, 1024, 1024);
+        gradient.addColorStop(0, '#1a1a1a');
+        gradient.addColorStop(1, '#2a2a2a');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 1024, 1024);
+        
+        // Add some visual interest
+        ctx.strokeStyle = '#8B5CF6';
+        ctx.lineWidth = 2;
+        for (let j = 0; j < 10; j++) {
+          ctx.beginPath();
+          ctx.moveTo(0, j * 100);
+          ctx.lineTo(1024, j * 100);
+          ctx.stroke();
+        }
+        
+        writeFileSync(imagePath, canvas.toBuffer());
         imagePaths.push(imagePath);
       }
     }
   } catch (error) {
     console.error("Error in image generation process:", error);
     const fallbackPath = path.join(scenesDir, "scene_fallback.png");
-    writeFileSync(fallbackPath, generateSolidColorImage(1024, 1024));
-    imagePaths.push(fallbackPath);
-  }
-
-  // Ensure we have at least one image
-  if (imagePaths.length === 0) {
-    const fallbackPath = path.join(scenesDir, "scene_fallback.png");
-    writeFileSync(fallbackPath, generateSolidColorImage(1024, 1024));
+    const canvas = createCanvas(1024, 1024);
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(0, 0, 1024, 1024);
+    writeFileSync(fallbackPath, canvas.toBuffer());
     imagePaths.push(fallbackPath);
   }
 
   return imagePaths;
-}
-
-function generateSceneDescriptions(script: string): string[] {
-  // Default scenes with Subsonic Archive aesthetic
-  const defaultScenes = [
-    "A DJ silhouette in an industrial underground space, backlit by neon magenta and chrome green lights, with analog equipment and vinyl crates visible in the shadows",
-    "Close-up of vintage mixer knobs and faders, bathed in tape-burn orange light, with a blurred crowd of dancer silhouettes in the background",
-    "Wide-angle shot of an underground archive room, dusty light beams revealing rows of vinyl records, with holographic catalog numbers floating in the air",
-    "Low-angle portrait of a producer in their studio, surrounded by vintage synthesizers, with CRT screens showing waveforms in the background"
-  ];
-
-  // Extract key scenes from script with enhanced focus on underground music aesthetics
-  const scenes = script
-    .split(/[.!?]\s+/)
-    .filter(sentence => 
-      sentence.length > 20 && 
-      /music|sound|beat|rhythm|perform|play|create|studio|artist|underground|vinyl|analog|digital|mix|track/i.test(sentence)
-    )
-    .map(scene => scene.trim())
-    .slice(0, 4);
-
-  return scenes.length > 0 ? scenes : defaultScenes;
 } 

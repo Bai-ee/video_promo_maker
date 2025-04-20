@@ -242,4 +242,55 @@ export function fillTemplate(
  */
 function replaceVariables(text: string, variables: Record<string, any>): string {
   return text.replace(/\{(\w+)\}/g, (match, key) => variables[key] || match);
-} 
+}
+
+// Test brand style for text overlays
+export const testBrandStyle: BrandStyle = {
+  brandName: 'Underground Existence',
+  primaryColor: '#FFFFFF',
+  secondaryColor: '#1A1F2C',
+  accentColor: '#FF4081',
+  backgroundColor: '#000000',
+  fontFamily: 'Arial',
+  fontFamilyFallback: 'sans-serif',
+  fontSize: {
+    heading: 72,
+    subheading: 36,
+    body: 24,
+    caption: 18
+  },
+  tone: 'modern and underground',
+  voiceStyle: 'authentic and direct',
+  logoPath: './assets/logo.png',
+  useBorders: true,
+  borderColor: '#333333',
+  borderWidth: 2,
+  layout: {
+    titlePosition: 'center',
+    logoPosition: 'bottom-right',
+    textAlignment: 'center'
+  },
+  videoStyle: {
+    transitionType: 'fade',
+    transitionDuration: 0.5,
+    captionStyle: 'minimal',
+    useLowerThirds: false,
+    useIntro: true,
+    useOutro: true,
+    introDuration: 3,
+    outroDuration: 3
+  },
+  promptTemplates: {
+    default: 'Create a promotional image for {artistName}'
+  },
+  imageFilters: {
+    saturation: 1.2,
+    brightness: 1.1,
+    contrast: 1.1,
+    useOverlay: true,
+    overlayColor: 'rgba(26, 31, 44, 0.2)',
+    grain: true,
+    blur: 0,
+    vignette: true
+  }
+}; 

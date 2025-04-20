@@ -5,6 +5,7 @@ import { createEnhancedVideo } from './lib/enhanced-video';
 import { AudioProcessor } from './lib/audio-processor';
 import path from 'path';
 import { existsSync, mkdirSync, readFileSync } from 'fs';
+import { loadCustomFonts } from './lib/fonts';
 
 // Load environment variables
 config();
@@ -96,6 +97,9 @@ async function createBrandedVideo(
     // Load brand styling
     console.log('Loading brand style guide...');
     const brandStyle = loadBrandStyle();
+    
+    // Load custom fonts
+    loadCustomFonts();
     
     // Process audio if URL provided
     if (audioUrl) {

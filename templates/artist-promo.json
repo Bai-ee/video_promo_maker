@@ -45,6 +45,7 @@
         {
           "type": "text",
           "content": "{mixDescription}",
+          "subtext": "{mixDuration} Live Set",
           "style": "body",
           "position": "bottom",
           "animation": "fade-in"

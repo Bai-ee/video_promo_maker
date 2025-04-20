@@ -1,49 +1,49 @@
 {
   "brandName": "Underground Existence",
-  "primaryColor": "#1A1F2C",
-  "secondaryColor": "#2B2D42",
-  "accentColor": "#8B5CF6",
-  "backgroundColor": "#121212",
-  "fontFamily": "Space Grotesk",
-  "fontFamilyFallback": "sans-serif",
+  "primaryColor": "#FFFFFF",
+  "secondaryColor": "#1A1F2C",
+  "accentColor": "#FF4081",
+  "backgroundColor": "#000000",
+  "fontFamily": "Orbitron",
+  "fontFamilyFallback": "Arial",
   "fontSize": {
-    "heading": 32,
-    "subheading": 24,
-    "body": 16,
-    "caption": 12
+    "heading": 72,
+    "subheading": 36,
+    "body": 24,
+    "caption": 18
   },
-  "tone": "confident, archival, analog-accurate",
-  "voiceStyle": "deep house ambient tech",
-  "logoPath": "./assets/underground-existence-logo.svg",
-  "useBorders": false,
+  "tone": "modern and underground",
+  "voiceStyle": "authentic and direct",
+  "logoPath": "./assets/logo.png",
+  "useBorders": true,
+  "borderColor": "#333333",
+  "borderWidth": 2,
   "layout": {
     "titlePosition": "center",
-    "logoPosition": "top-right",
-    "textAlignment": "left"
+    "logoPosition": "bottom-right",
+    "textAlignment": "center"
   },
   "videoStyle": {
-    "transitionType": "crossfade",
+    "transitionType": "fade",
     "transitionDuration": 0.5,
-    "captionStyle": "clean",
-    "useLowerThirds": true,
+    "captionStyle": "minimal",
+    "useLowerThirds": false,
     "useIntro": true,
     "useOutro": true,
     "introDuration": 3,
-    "outroDuration": 4
+    "outroDuration": 3
   },
   "promptTemplates": {
-    "thumbnail": "Black-and-white photo of a Chicago DJ, high contrast, gritty texture, subtle blur, Studio Ghibli composition, central focus with soft vignette and retro film grain",
-    "intro": "Dark tone video intro for Underground Existence, minimal motion design with bold text and deep analog aesthetic using {accentColor}",
-    "outro": "Simple closing frame with logo and call-to-action, consistent with intro design, no fluff"
+    "default": "Create a promotional image for {artistName}"
   },
   "imageFilters": {
-    "saturation": 0.9,
-    "brightness": 0.95,
-    "contrast": 1.2,
+    "saturation": 1.2,
+    "brightness": 1.1,
+    "contrast": 1.1,
     "useOverlay": true,
-    "overlayColor": "rgba(0, 0, 0, 0.35)",
+    "overlayColor": "rgba(26, 31, 44, 0.2)",
     "grain": true,
-    "blur": 0.3,
+    "blur": 0,
     "vignette": true
   }
 }

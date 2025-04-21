@@ -9,6 +9,15 @@ function toSentenceCase(str) {
   return str.toLowerCase().replace(/(^\w|\s\w)/g, letter => letter.toUpperCase());
 }
 
+// Function to get a random paper background
+function getRandomPaperBackground() {
+  const paperBgDir = path.join(__dirname, '..', '..', 'assets', 'paper_backgrounds');
+  const files = fs.readdirSync(paperBgDir).filter(file => file.endsWith('.png'));
+  const randomFile = files[Math.floor(Math.random() * files.length)];
+  console.log(`Randomly selected paper background: ${randomFile}`);
+  return path.join(paperBgDir, randomFile);
+}
+
 // Function to get a random artist from the artists array
 function getRandomArtist() {
   const randomIndex = Math.floor(Math.random() * artists.length);
@@ -37,22 +46,26 @@ async function updateTemplate(artist) {
   console.log('Using background image path:', bgImagePath);
   template = template.replace(/assets\/backgrounds\/generic_bg\.jpg/g, bgImagePath);
   
+  // Replace paper background with random paper background
+  const paperBgPath = getRandomPaperBackground();
+  console.log('Using paper background path:', paperBgPath);
+  template = template.replace(/PAPER_BACKGROUND_PATH/g, paperBgPath);
+  
   // Replace logo image with absolute path
   const logoPath = path.join(__dirname, '..', '..', 'assets', 'logos', 'ue_logo_horiz.png');
   console.log('Using logo path:', logoPath);
   template = template.replace(/assets\/logos\/ue_logo_horiz\.png/g, logoPath);
   
-  // Replace genre
-  template = template.replace(/GENRE_PLACEHOLDER/g, artist.artistGenre);
+  // Remove genre replacement
+  template = template.replace(/<h2>.*?<\/h2>/g, '');
   
   // Generate mix HTML for one random mix
   const randomMix = artist.mixes[Math.floor(Math.random() * artist.mixes.length)];
   const mixesHtml = `
     <div class="mix">
-      <h3>${randomMix.mixTitle}</h3>
       <div class="mix-info">
-        <p>Duration: ${randomMix.mixDuration}</p>
-        <p>Date: ${randomMix.mixDateYear}</p>
+        <!-- <p class="artist-display">${artistNameSentenceCase}</p> -->
+        <p class="mix-display" style="width: 100%; text-align: center;">${randomMix.mixTitle}</p>
       </div>
       <a href="${randomMix.mixArweaveURL}" target="_blank"></a>
     </div>

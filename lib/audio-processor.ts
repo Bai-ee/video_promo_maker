@@ -69,7 +69,13 @@ export class AudioProcessor {
     duration: number,
     outputPath: string,
     fadeInDuration: number = 2,
-    fadeOutDuration: number = 2
+    fadeOutDuration: number = 2,
+    metadata?: {
+      artist?: string;
+      title?: string;
+      album?: string;
+      genre?: string;
+    }
   ): Promise<string> {
     console.log(`[AudioProcessor] Cutting clip:
       Input: ${inputPath}
@@ -80,14 +86,24 @@ export class AudioProcessor {
       Fade Out: ${fadeOutDuration}s`);
 
     return new Promise((resolve, reject) => {
-      ffmpeg(inputPath)
+      const command = ffmpeg(inputPath)
         .setStartTime(startTime)
         .duration(duration)
         .audioFilters([
           `afade=t=in:st=0:d=${fadeInDuration}`,
           `afade=t=out:st=${duration - fadeOutDuration}:d=${fadeOutDuration}`
         ])
-        .output(outputPath)
+        .output(outputPath);
+
+      // Add metadata if provided
+      if (metadata) {
+        if (metadata.artist) command.outputOptions('-metadata', `artist=${metadata.artist}`);
+        if (metadata.title) command.outputOptions('-metadata', `title=${metadata.title}`);
+        if (metadata.album) command.outputOptions('-metadata', `album=${metadata.album}`);
+        if (metadata.genre) command.outputOptions('-metadata', `genre=${metadata.genre}`);
+      }
+
+      command
         .on('start', (command) => {
           console.log(`[AudioProcessor] FFmpeg command: ${command}`);
         })
@@ -110,7 +126,13 @@ export class AudioProcessor {
     url: string,
     clipDuration: number = 30,
     fadeInDuration: number = 2,
-    fadeOutDuration: number = 2
+    fadeOutDuration: number = 2,
+    metadata?: {
+      artist?: string;
+      title?: string;
+      album?: string;
+      genre?: string;
+    }
   ): Promise<AudioClipResult> {
     console.log(`[AudioProcessor] Starting audio processing:
       URL: ${url}
@@ -141,14 +163,15 @@ export class AudioProcessor {
         Max Start Time: ${maxStart}s
         Selected Start Time: ${startTime}s`);
 
-      // Cut the clip with fades
+      // Cut the clip with fades and metadata
       await this.cutClip(
         tempInput,
         startTime,
         clipDuration,
         tempOutput,
         fadeInDuration,
-        fadeOutDuration
+        fadeOutDuration,
+        metadata
       );
 
       // Clean up input file

@@ -27,65 +27,72 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.55);
+      /* background: rgba(0, 0, 0, 0.55); */
       z-index: 1;
+    }
+
+    .text-background {
+      position: absolute;
+      top: 200px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('PAPER_BACKGROUND_PATH') center center / cover no-repeat;
+      z-index: 1;
+      opacity: 0.8;
     }
 
     .content-wrapper {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
       height: 100%;
       position: relative;
       z-index: 2;
-      margin-bottom:1vh;
+      padding-top: 100px;
     }
 
     .top-thumbnail {
-      width: 300px;
-      height: 300px;
+      margin: 0;
+      width: 200px;
+      height: 200px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      margin: 20px auto;
-      border-radius: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      margin-top: 1vh;
-      rounded-corners: 20px;
+      border-radius: 10px;
     }
 
     .main-content {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding: 20px;
-      margin: 0 auto;
+      gap: 10px;
       width: 100%;
       box-sizing: border-box;
-      margin-top:1vh;
     }
 
     .artist-info h1 {
       font-family: 'Gately', sans-serif;
-      font-size: 4vh;
+      font-size: 10vh;
+      line-height: 9.5vh;
       margin: 0;
-      text-transform: uppercase;
       letter-spacing: 0.1em;
       text-align: center;
+      color: black;
     }
 
     .artist-info h2 {
       font-size: 2vh;
       margin: 0.5vh 0 0;
       font-weight: 400;
-      color: #ff4081;
+      color: #000000;
       text-align: center;
     }
 
     .mixes {
-      margin-top: 20px;
+      margin-top: 25px;
       text-align: center;
     }
 
@@ -99,21 +106,22 @@
 
     .mix-info {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.2vh;
+      padding: 0 40px;
       margin-bottom: 0vh;
+      gap:70px;
     }
 
     .mix-info p {
       margin: 0;
       font-size: 3.2vh;
-      color: #aaa;
-      margin-bottom:0vh;
+      color: #000000;
+      margin-bottom: 0vh;
     }
 
     .mix-title {
-      font-size: 2.5vh;
+      font-size: 5.5vh;
       font-weight: 600;
       text-align: center;
     }
@@ -127,11 +135,10 @@
     .footer {
       width: 277px;
       height: 62px;
-      margin: 0 auto;
-      margin-bottom: 0vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: 0;
     }
 
     .logo {
@@ -143,27 +150,31 @@
       margin: 0;
       background-image: url('assets/logos/ue_logo_horiz.png');
       z-index: 2;
+      scale:0.75;
     }
   </style>
 </head>
 <body>
   <div class="overlay"></div>
+  <div class="text-background"></div>
   <div class="content-wrapper">
+    <div class="logo" style="background-image: url('assets/logos/ue_logo_horiz.png');"></div>
     <div class="top-thumbnail" style="background-image: url('path/to/your/image.jpg');"></div>
     
     <div class="main-content">
       <div class="artist-info">
-        <h1>BAI-EE</h1>
-        <h2>ACID | CHICAGO</h2>
+        <h1>Mix Tapes from Chicago</h1>
+        <!-- <h2 class="artist-name">BAI-EE</h2> -->
+        <!-- <h2>ACID | CHICAGO</h2> -->
       </div>
-      
+
       <div class="mixes">
         <!-- MIXES_PLACEHOLDER -->
       </div>
     </div>
 
     <div class="footer">
-      <div class="logo" style="background-image: url('assets/logos/ue_logo_horiz.png');"></div>
+      <!-- <div class="logo" style="background-image: url('assets/logos/ue_logo_horiz.png');"></div> -->
     </div>
   </div>
 </body>

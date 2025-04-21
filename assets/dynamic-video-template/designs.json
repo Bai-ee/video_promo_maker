@@ -1,0 +1,26 @@
+
+{
+  "scenes": [
+    {
+      "type": "intro",
+      "duration": 3,
+      "background": "./assets/bg1.png",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Now Playing",
+          "x": 100,
+          "y": 80,
+          "fontSize": 48,
+          "color": "#FFFFFF"
+        },
+        {
+          "type": "image",
+          "src": "./assets/artist.png",
+          "x": 300,
+          "y": 200
+        }
+      ]
+    }
+  ]
+}

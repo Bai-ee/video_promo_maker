@@ -1,38 +1,24 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const artists = require('../artists.json');
 const path = require('path');
+const artists = require('../../assets/artists.json');
+const { AudioProcessor } = require('../../dist/lib/audio-processor');
 
-// Function to convert text to sentence case while preserving parenthetical content
-function toSentenceCase(text) {
-  // Split the text into main part and parenthetical part if it exists
-  const matches = text.match(/(.*?)(\s*\(.*\))?$/);
-  if (!matches) return text;
+// Helper function to convert to sentence case
+function toSentenceCase(str) {
+  return str.toLowerCase().replace(/(^\w|\s\w)/g, letter => letter.toUpperCase());
+}
 
-  const mainText = matches[1];
-  const parenthetical = matches[2] || '';
-
-  // Convert main text to sentence case
-  const mainProcessed = mainText
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
-
-  // Convert parenthetical content to sentence case if it exists
-  const parentheticalProcessed = parenthetical
-    ? parenthetical.replace(/\((.*?)\)/g, match => {
-        const inner = match.slice(1, -1);
-        return '(' + inner.split(' ')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-          .join(' ') + ')';
-      })
-    : '';
-
-  return mainProcessed + parentheticalProcessed;
+// Function to get a random artist from the artists array
+function getRandomArtist() {
+  const randomIndex = Math.floor(Math.random() * artists.length);
+  const artist = artists[randomIndex];
+  console.log(`Randomly selected artist: ${artist.artistName} (index: ${randomIndex})`);
+  return artist;
 }
 
 // Function to update HTML template with artist data
-function updateTemplate(artist) {
+async function updateTemplate(artist) {
   console.log('Copying base_template.html to updated_template.html');
   // Copy the entire base template content
   let template = fs.readFileSync(__dirname + '/base_template.html', 'utf8');
@@ -83,18 +69,47 @@ function updateTemplate(artist) {
   // Write the updated template to updated_template.html
   fs.writeFileSync(__dirname + '/updated_template.html', template);
   console.log('Updated template written to updated_template.html');
+
+  // Process audio from the random mix
+  console.log('Processing audio from mix URL:', randomMix.mixArweaveURL);
+  try {
+    const audioResult = await AudioProcessor.processAudioUrl(
+      randomMix.mixArweaveURL,
+      30, // 30 second clip
+      2,  // 2 second fade in
+      2   // 2 second fade out
+    );
+    console.log('Audio processing result:', audioResult);
+    
+    // Move the processed audio to temp_audio.mp3
+    fs.copyFileSync(audioResult.clipPath, path.join(__dirname, 'temp_audio.mp3'));
+    console.log('Audio clip saved as temp_audio.mp3');
+    
+    // Clean up the original clip
+    await AudioProcessor.cleanupClip(audioResult.clipPath);
+    console.log('Original audio clip cleaned up');
+  } catch (error) {
+    console.error('Error processing audio:', error);
+    console.log('Continuing without audio...');
+  }
 }
 
 (async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  // Render CESAR RAMIREZ's scene
-  updateTemplate(artists[5]);
+    // Get and render a random artist's scene
+    const randomArtist = getRandomArtist();
+    await updateTemplate(randomArtist);
 
-  await page.goto('file://' + __dirname + '/updated_template.html');
-  await page.setViewport({ width: 500, height: 600 });
-  await page.screenshot({ path: 'scene.png' });
+    await page.goto('file://' + __dirname + '/updated_template.html');
+    await page.setViewport({ width: 500, height: 600 });
+    await page.screenshot({ path: 'scene.png' });
 
-  await browser.close();
+    await browser.close();
+  } catch (error) {
+    console.error('Error in render process:', error);
+    process.exit(1);
+  }
 })();

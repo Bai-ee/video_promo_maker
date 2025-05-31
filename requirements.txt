@@ -1,0 +1,47 @@
+# Core Dependencies - Compatible with Python 3.13
+streamlit>=1.28.0
+crewai>=0.11.2
+crewai-tools>=0.1.0
+
+# AI and LLM Integration
+openai>=1.35.0
+litellm>=1.40.0
+
+# Data Processing
+pandas>=2.1.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# UI Components
+streamlit-option-menu>=0.3.0
+streamlit-chat>=0.1.0
+streamlit-extras>=0.3.0
+
+# File Handling
+python-dotenv>=1.0.0
+
+# Time Zone Handling
+pytz>=2023.3
+
+# Existing Agent Dependencies
+requests>=2.31.0
+json5>=0.9.0
+
+# Web Crawling Services
+webcrawlerapi>=2.0.0  # Primary web crawler
+firecrawl-py>=0.0.8   # Backup web crawler
+
+# Web Search Integration
+duckduckgo-search>=8.0.0  # DuckDuckGo search for URL discovery
+
+# Optional: Enhanced Search (compatible version)
+# exa-py>=1.0.0  # Commented out - may have compatibility issues
+
+# Development
+black>=23.0.0
+flake8>=6.0.0
+
+# Additional dependencies for CrewAI functionality
+langchain>=0.1.0
+langchain-openai>=0.1.0
+pydantic>=2.0.0 
